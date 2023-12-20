@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
@@ -15,4 +16,9 @@ public class StartGame : MonoBehaviour
     {
         
     }
+
+    public void bat_dau()
+    {
+        SceneManager.LoadScene("man_1");
+    }    
 }
