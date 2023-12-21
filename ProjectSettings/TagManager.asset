@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - nen_dat
+  - ben_trai
+  - ben_tren
+  - coin
+  - bi_an
+  - qua_man
+  - roi_xuong
   layers:
   - Default
   - TransparentFX

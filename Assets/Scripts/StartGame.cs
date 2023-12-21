@@ -20,5 +20,11 @@ public class StartGame : MonoBehaviour
     public void bat_dau()
     {
         SceneManager.LoadScene("man_1");
+    }
+    
+    public void ReloadGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
     }    
 }
