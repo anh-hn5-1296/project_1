@@ -30,7 +30,7 @@ public class DiChuyen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             isRight = true;
             animator.SetBool("isRunning", true);
@@ -39,7 +39,7 @@ public class DiChuyen : MonoBehaviour
             scale.x *= scale.x > 0 ? 1 : -1;
             transform.localScale = scale;
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             isRight = false;
             animator.SetBool("isRunning", true);
@@ -48,7 +48,7 @@ public class DiChuyen : MonoBehaviour
             scale.x *= scale.x > 0 ? -1 : 1;
             transform.localScale = scale;
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
         {
             if (nen == true)
             { 
