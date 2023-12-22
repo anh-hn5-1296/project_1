@@ -10,6 +10,12 @@ public class DiChuyen : MonoBehaviour
     public Animator animator;
     public bool isRight = true;
     private Rigidbody2D rb;
+    private bool moveLeft;
+    private bool moveRight;
+    private float horizontalMove;
+    public float speed = 5;
+    public float jumpSpeed = 10;
+    public bool isGrounded;
     private bool nen;
     public GameObject panel, button, text;
     public TextMeshProUGUI diemText;
@@ -25,12 +31,26 @@ public class DiChuyen : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         TinhTong(0);
+        moveLeft = false;
+        moveRight = false;
     }
 
+    public void PointerDownLeft()
+    {
+        moveLeft = true;
+    }    
+
+    public void PointerUpLeft()
+    {
+        moveLeft = false;
+    }
+    public void PointerDownRight() { moveRight = true;}
+    public void PointerUpRight() { moveRight = false;}
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        MovePlay();
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             isRight = true;
             animator.SetBool("isRunning", true);
@@ -70,21 +90,35 @@ public class DiChuyen : MonoBehaviour
                 }
                 nen = false;
             }
-        }
-
-        if (Input.GetKey(KeyCode.P))
-        {
-            isPause = !isPause;
-            if (isPause)
-            {
-                Time.timeScale = 0;
-            } 
-            else
-            {
-                Time.timeScale = 1;
-            }
-        }    
+        }   
     }
+    private void MovePlay()
+    {
+        if (moveLeft) 
+        {
+            horizontalMove = -speed;
+            transform.localScale = new Vector3( -0.7045F, 0.6597F, 1F);
+        }
+        else if (moveRight)
+        {
+            horizontalMove = speed;
+            transform.localScale = new Vector3(0.7045F, 0.6597F, 1F);
+        }    
+        else { horizontalMove = 0; }
+    }
+    public void PauseGame()
+    {
+        isPause = !isPause;
+        if (isPause)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "nen_dat")
@@ -95,8 +129,24 @@ public class DiChuyen : MonoBehaviour
         if (collision.gameObject.tag == "qua_man")
         {
             SceneManager.LoadScene("man_2");
-        }    
+        }   
+        
+        if (collision.gameObject.tag == "nen_dat")
+        {
+            isGrounded = true;
+        }
     }
+
+    public void jumpButton()
+    {
+        if (isGrounded)
+        {
+            isGrounded = false;
+            rb.velocity = Vector2.up * jumpSpeed;
+        }
+        
+    }  
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -135,6 +185,11 @@ public class DiChuyen : MonoBehaviour
                 collision.gameObject.transform.localRotation);
             TinhTong(10);
         }   
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(horizontalMove, rb.velocity.y);
     }
 
     void TinhTong(int score)

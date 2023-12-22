@@ -11,6 +11,7 @@ TagManager:
   - bi_an
   - qua_man
   - roi_xuong
+  - Ground
   layers:
   - Default
   - TransparentFX

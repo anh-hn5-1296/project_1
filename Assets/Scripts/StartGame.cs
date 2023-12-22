@@ -21,7 +21,7 @@ public class StartGame : MonoBehaviour
     {
         SceneManager.LoadScene("man_1");
     }
-    
+
     public void ReloadGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
